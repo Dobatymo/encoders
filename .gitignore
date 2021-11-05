@@ -1,0 +1,15 @@
+*.bak
+
+__pycache__/
+*.py[cod]
+*.egg-info
+build/
+dist/
+.mypy_cache/
+
+# C extensions
+*.so
+*.o
+
+# cythonized files
+*.cpp
