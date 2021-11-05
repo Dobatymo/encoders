@@ -1,9 +1,9 @@
-from libcpp.string cimport string
+# distutils: language=c++
+
+from cpython.ref cimport PyObject
 
 cdef extern from "pyunicode.hpp":
-	cdef cppclass PyUnicode:
-		int kind
-		string unicode
+	cdef cppclass PyUnicodeSmartPtr:
 
-		PyUnicode()
-		PyUnicode(int, string)
+		PyUnicodeSmartPtr(PyObject *) except +
+		PyObject *get() const

@@ -1,23 +1,24 @@
-#include <string>
+#include <cstring>
+#define PY_SSIZE_T_CLEAN
+#include "Python.h"
+#include "smartptr.h"
 
-class PyUnicode {
+class PyUnicodeSmartPtr : public PyObjectSmartPtr {
 
 public:
-	int kind;
-	std::string unicode;
 
-	PyUnicode() {}
-	PyUnicode(int kind, const std::string &unicode) : kind(kind), unicode(unicode) {}
-	
-	bool operator==(const PyUnicode &other) const noexcept {
-		return kind == other.kind && unicode == other.unicode;
+	PyUnicodeSmartPtr() : PyObjectSmartPtr() {}
+	PyUnicodeSmartPtr(PyObject *ptr) : PyObjectSmartPtr(ptr) {}
+
+	bool operator==(const PyUnicodeSmartPtr &other) const noexcept {
+		return PyUnicode_KIND(get()) == PyUnicode_KIND(other.get()) &&
+			PyUnicode_GET_LENGTH(get()) == PyUnicode_GET_LENGTH(other.get()) &&
+			std::memcmp(PyUnicode_DATA(get()), PyUnicode_DATA(other.get()), PyUnicode_GET_LENGTH(get())) == 0;
 	}
 };
 
-template <> struct std::hash<PyUnicode> {
-	std::size_t operator()(PyUnicode const &s) const noexcept {
-		std::size_t h1 = std::hash<int>{}(s.kind);
-		std::size_t h2 = std::hash<std::string>{}(s.unicode);
-		return h1 ^ (h2 << 1);
+template <> struct std::hash<PyUnicodeSmartPtr> {
+	std::size_t operator()(const PyUnicodeSmartPtr &s) const noexcept {
+		return static_cast<std::size_t>(PyObject_Hash(s.get())); //reinterpret_cast
 	}
 };
