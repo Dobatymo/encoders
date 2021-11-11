@@ -39,7 +39,7 @@ cdef class BytesLabelEncoder:
 		cdef string item
 		cdef int i
 
-		cdef size_t[::1] out = view.array(shape=(len(seq), ), itemsize=sizeof(size_t), format="Q")
+		cdef size_t[::1] out = view.array(shape=(len(seq), ), itemsize=sizeof(size_t), format="N")
 
 		for i, item in enumerate(seq):
 			out[i] = self._labels.at(item)
@@ -65,7 +65,7 @@ cdef class BytesLabelEncoder:
 		for i, item in enumerate(seq):
 			out[i] = self._classes[item]
 
-		return np.asarray(out)
+		return np.asarray(out, dtype=np.uintp)
 
 	@property
 	def labels(self):
@@ -112,7 +112,7 @@ cdef class StringLabelEncoder:
 		cdef object item
 		cdef int i
 
-		cdef size_t[::1] out = view.array(shape=(len(seq), ), itemsize=sizeof(size_t), format="Q")
+		cdef size_t[::1] out = view.array(shape=(len(seq), ), itemsize=sizeof(size_t), format="N")
 
 		for i, item in enumerate(seq):
 			if not isinstance(item, str):
@@ -142,7 +142,7 @@ cdef class StringLabelEncoder:
 		for i, item in enumerate(seq):
 			out[i] = <object>self._classes[item].get()
 
-		return np.asarray(out)
+		return np.asarray(out, dtype=np.uintp)
 
 	@property
 	def labels(self):
