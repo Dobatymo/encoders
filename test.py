@@ -1,18 +1,18 @@
 from unittest import TestCase
 
-from encoder.encoder import BytesLabelEncoder, StringLabelEncoder
-from genutility.time import PrintStatementTime
 import numpy as np
 
-class EncoderTest(TestCase):
+from encoders.encoder import BytesLabelEncoder, StringLabelEncoder
 
+
+class EncoderTest(TestCase):
     def test_bytes(self):
         stuff = [b"asd", b"qwe", b"zxc"] * 2
 
         le = BytesLabelEncoder()
         le.partial_fit(stuff)
         le.partial_fit(stuff)
-        self.assertEqual(le.classes, {b'asd': 0, b'qwe': 1, b'zxc': 2})
+        self.assertEqual(le.classes, {b"asd": 0, b"qwe": 1, b"zxc": 2})
         le.transform(stuff) == np.array([0, 1, 2, 0, 1, 2])
 
     def test_bytes_typeerror(self):
@@ -36,6 +36,8 @@ class EncoderTest(TestCase):
             le = StringLabelEncoder()
             le.partial_fit([b"asd"])
 
+
 if __name__ == "__main__":
     import unittest
+
     unittest.main()

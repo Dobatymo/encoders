@@ -1,14 +1,17 @@
 from cython.parallel import prange
-from libcpp.map cimport map
-from libcpp.unordered_map cimport unordered_map
-from libcpp.string cimport string
-from libcpp.utility cimport pair
+
 from cython cimport view
+from libcpp.map cimport map
+from libcpp.string cimport string
+from libcpp.unordered_map cimport unordered_map
+from libcpp.utility cimport pair
+
 import numpy as np
 
 from cpython.ref cimport PyObject
 
 from .pyunicode cimport PyUnicodeSmartPtr
+
 
 cdef class BytesLabelEncoder:
 

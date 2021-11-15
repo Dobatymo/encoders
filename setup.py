@@ -1,9 +1,7 @@
-from setuptools import setup
-
 import platform
 import sys
-import numpy as np
 
+import numpy as np
 from Cython.Build import cythonize
 from setuptools import Extension, setup
 
@@ -59,12 +57,12 @@ if __name__ == "__main__":
         long_description="file: readme.md",
         long_description_content_type="text/markdown; charset=UTF-8",
         url="https://github.com/Dobatymo/encoders",
-        classifiers ='''
+        classifiers="""
             Intended Audience :: Developers
             License :: OSI Approved :: ISC License (ISCL)
             Operating System :: OS Independent
             Programming Language :: Python :: 3
-        ''',
+        """,
         include_package_data=True,
         install_requires=[],
         packages=["encoders"],
