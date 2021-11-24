@@ -67,7 +67,7 @@ public:
         if (ptr == nullptr) {
             throw std::invalid_argument("nullptr");
         }
-        return ptr->ob_refcnt;
+        return Py_REFCNT(ptr);
     }
 };
 
