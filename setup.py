@@ -30,9 +30,9 @@ else:
 
 cy_extensions = [
     Extension(
-        "encoder.cyfuncs",
-        ["encoder/cyfuncs.pyx"],
-        include_dirs=[np.get_include(), "encoder"],
+        "encoders.cyfuncs",
+        ["encoders/cyfuncs.pyx"],
+        include_dirs=[np.get_include(), "encoders"],
         extra_compile_args=cflags,
         language="c++",
         define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
@@ -52,13 +52,13 @@ compiler_directives = {
 
 if __name__ == "__main__":
     setup(
-        name="encoder",
+        name="encoders",
         version="0.0.1",
-        description="better than scikit encoders",
+        description="Faster than scikit encoders",
         author="Dobatymo",
         long_description="file: readme.md",
         long_description_content_type="text/markdown; charset=UTF-8",
-        url="https://github.com/Dobatymo/markov",
+        url="https://github.com/Dobatymo/encoders",
         classifiers ='''
             Intended Audience :: Developers
             License :: OSI Approved :: ISC License (ISCL)
@@ -66,10 +66,9 @@ if __name__ == "__main__":
             Programming Language :: Python :: 3
         ''',
         include_package_data=True,
-        install_requires=[
-            "genutility>=0.0.50"
-        ],
-        packages=["markov"],
+        install_requires=[],
+        packages=["encoders"],
+        package_data={"encoders": ["py.typed"]},
         ext_modules=cythonize(cy_extensions, language_level=3, compiler_directives=compiler_directives),
         python_requires=">=3.6",
         zip_safe=False,
