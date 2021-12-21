@@ -29,6 +29,9 @@ cdef class BytesLabelEncoder:
 		for item in seq:
 			self._classes.insert(pair[string, size_t](item, self._classes.size()))
 
+	def fit(self, seq):
+		self.partial_fit(seq)
+
 	def transform(self, seq):
 		cdef string item
 		cdef int i
@@ -62,6 +65,9 @@ cdef class StringLabelEncoder:
 				raise TypeError(f"expected bytes, {type(item)} found")
 
 			self._classes.insert(pair[PyUnicodeSmartPtr, size_t](PyUnicodeSmartPtr(<PyObject *>item), self._classes.size()))
+
+	def fit(self, seq):
+		self.partial_fit(seq)
 
 	def transform(self, seq):
 		cdef object item

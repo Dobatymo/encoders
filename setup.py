@@ -20,9 +20,9 @@ elif sys.platform == "win32":
         cflags = ["/std:c++14", "/O2", "/openmp", "/fp:fast"]
 elif sys.platform == "darwin":
     if machine in x86:
-        cflags = ["-std=c++14", "-O2", "-mavx2", "-fopenmp", "-ffast-math"]
+        cflags = ["-std=c++14", "-O2", "-mavx2", "-ffast-math"]
     else:
-        cflags = ["-std=c++14", "-O2", "-fopenmp", "-ffast-math"]
+        cflags = ["-std=c++14", "-O2", "-ffast-math"]
 else:
     cflags = []
 
@@ -63,7 +63,6 @@ if __name__ == "__main__":
             Operating System :: OS Independent
             Programming Language :: Python :: 3
         """,
-        include_package_data=True,
         install_requires=[],
         packages=["encoders"],
         package_data={"encoders": ["py.typed"]},
