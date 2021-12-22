@@ -1,3 +1,4 @@
 genutility
 numpy
+pandas
 scikit-learn

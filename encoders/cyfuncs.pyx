@@ -1,11 +1,11 @@
 from cython.parallel import prange
 
-from cython cimport view, nogil
+from cython cimport nogil, view
 from libcpp.map cimport map
-from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libcpp.unordered_map cimport unordered_map
 from libcpp.utility cimport pair
+from libcpp.vector cimport vector
 
 import numpy as np
 
