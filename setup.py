@@ -48,21 +48,24 @@ compiler_directives = {
     "warn.unused_result": True,
 }
 
+with open("readme.md", "r", encoding="utf-8") as fr:
+    long_description = fr.read()
+
 if __name__ == "__main__":
     setup(
         name="encoders",
-        version="0.0.1",
+        version="0.0.2",
         description="Faster than scikit encoders",
         author="Dobatymo",
-        long_description="file: readme.md",
+        long_description=long_description,
         long_description_content_type="text/markdown; charset=UTF-8",
         url="https://github.com/Dobatymo/encoders",
-        classifiers="""
-            Intended Audience :: Developers
-            License :: OSI Approved :: ISC License (ISCL)
-            Operating System :: OS Independent
-            Programming Language :: Python :: 3
-        """,
+        classifiers=[
+            "Intended Audience :: Developers",
+            "License :: OSI Approved :: ISC License (ISCL)",
+            "Operating System :: OS Independent",
+            "Programming Language :: Python :: 3",
+        ],
         install_requires=[],
         packages=["encoders"],
         package_data={"encoders": ["py.typed"]},

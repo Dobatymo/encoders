@@ -92,16 +92,30 @@ def bench_transform(labels, le, le2, n_repeat: int = REPEAT):
 
     with PrintStatementTime(f"{le.__class__.__name__}.transform: {{delta:.03f}}s"):
         for i in range(n_repeat):
-            le.transform(labels)
+            encoded = le.transform(labels)
 
     with PrintStatementTime(f"{le2.__class__.__name__}.transform: {{delta:.03f}}s"):
         for i in range(n_repeat):
-            le2.transform(labels)
+            encoded2 = le2.transform(labels)
+
+    return encoded, encoded2
+
+def bench_inverse_transform(encoded, encoded2, le, le2, n_repeat: int = REPEAT):
+
+    with PrintStatementTime(f"{le.__class__.__name__}.inverse_transform: {{delta:.03f}}s"):
+        for i in range(n_repeat):
+            le.inverse_transform(encoded)
+
+    with PrintStatementTime(f"{le2.__class__.__name__}.inverse_transform: {{delta:.03f}}s"):
+        for i in range(n_repeat):
+            le2.inverse_transform(encoded2)
 
 
 if __name__ == "__main__":
     labels, le, le2 = bench_fit_bytes()
-    bench_transform(labels, le, le2)
+    encoded, encoded2 = bench_transform(labels, le, le2)
+    bench_inverse_transform(encoded, encoded2, le, le2)
 
     labels, le, le2 = bench_fit_string()
-    bench_transform(labels, le, le2)
+    encoded, encoded2 = bench_transform(labels, le, le2)
+    bench_inverse_transform(encoded, encoded2, le, le2)
