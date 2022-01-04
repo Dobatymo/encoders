@@ -32,6 +32,14 @@ class EncoderTest(TestCase):
         result = le.inverse_transform(encoded)
         np.testing.assert_array_equal(result, np.array(stuff))
 
+    def test_bytes_transform_fail(self):
+        stuff = [b"asd", b"qwe", b"zxc"] * 2
+
+        le = BytesLabelEncoder()
+        le.finalize()
+        with self.assertRaises(IndexError):
+            le.transform(stuff)
+
     def test_bytes_typeerror(self):
 
         with self.assertRaises(TypeError):
@@ -70,6 +78,14 @@ class EncoderTest(TestCase):
         np.testing.assert_array_equal(le.classes, np.array(stuff[:3]))
         result = le.inverse_transform(encoded)
         np.testing.assert_array_equal(result, np.array(stuff))
+
+    def test_str_transform_fail(self):
+        stuff = ["asü", "😀", "zxä"] * 2
+
+        le = StringLabelEncoder()
+        le.finalize()
+        with self.assertRaises(IndexError):
+            le.transform(stuff)
 
     def test_str_typeerror(self):
 

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel", "Cython", "numpy"]
+requires = ["setuptools", "wheel", "Cython@git+https://github.com/cython/cython.git@c25c87d71107e634162302f7f61a119eff539a48", "numpy"]
 
 [tool.black]
 line-length = 120

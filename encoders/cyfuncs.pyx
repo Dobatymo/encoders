@@ -42,7 +42,7 @@ cdef class BytesLabelEncoder:
 		cdef size_t[::1] out = view.array(shape=(len(seq), ), itemsize=sizeof(size_t), format="Q")
 
 		for i, item in enumerate(seq):
-			out[i] = self._labels[item]
+			out[i] = self._labels.at(item)
 
 		return np.asarray(out)
 
@@ -118,7 +118,7 @@ cdef class StringLabelEncoder:
 			if not isinstance(item, str):
 				raise TypeError(f"expected bytes, {type(item)} found")
 
-			out[i] = self._labels[PyUnicodeSmartPtr(<PyObject *>item)]
+			out[i] = self._labels.at(PyUnicodeSmartPtr(<PyObject *>item))
 
 		return np.asarray(out)
 

@@ -48,7 +48,7 @@ compiler_directives = {
     "warn.unused_result": True,
 }
 
-with open("readme.md", "r", encoding="utf-8") as fr:
+with open("readme.md", encoding="utf-8") as fr:
     long_description = fr.read()
 
 if __name__ == "__main__":
