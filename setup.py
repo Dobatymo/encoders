@@ -54,7 +54,7 @@ with open("readme.md", encoding="utf-8") as fr:
 if __name__ == "__main__":
     setup(
         name="encoders",
-        version="0.0.2",
+        version="0.0.3",
         description="Faster than scikit encoders",
         author="Dobatymo",
         long_description=long_description,
