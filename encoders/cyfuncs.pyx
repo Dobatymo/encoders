@@ -1,5 +1,3 @@
-from cython.parallel import prange
-
 from cython cimport nogil, view
 from libcpp.map cimport map
 from libcpp.string cimport string

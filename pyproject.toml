@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel", "Cython==3.0.0a10", "numpy"]
+requires = ["setuptools", "wheel", "Cython==3.0.0a11", "numpy"]
 
 [tool.black]
 line-length = 120
