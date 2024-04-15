@@ -67,7 +67,10 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3",
         ],
         install_requires=[],
-        extras_require={"test": ["numpy"], "bench": ["genutility", "numpy", "pandas", "scikit-learn"]},
+        extras_require={
+            "test": ["numpy"],
+            "bench": ["genutility[time]", "numpy", "pandas[output_formatting]", "scikit-learn", "tqdm"],
+        },
         packages=["encoders"],
         package_data={"encoders": ["py.typed"]},
         ext_modules=cythonize(cy_extensions, language_level=3, compiler_directives=compiler_directives),
