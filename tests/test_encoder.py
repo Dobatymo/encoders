@@ -1,4 +1,4 @@
-import pickle
+import pickle  # nosec B403
 from unittest import TestCase
 
 import numpy as np
@@ -14,7 +14,7 @@ class EncoderTest(TestCase):
         le.partial_fit(stuff)
         le.partial_fit(stuff)
         self.assertEqual(le.labels, {b"asd": 0, b"qwe": 1, b"zxc": 2})
-        le.transform(stuff) == np.array([0, 1, 2, 0, 1, 2])
+        np.testing.assert_array_equal(le.transform(stuff), np.array([0, 1, 2, 0, 1, 2]))
 
     def test_bytes_finalize_empty(self):
         le = BytesLabelEncoder()
@@ -41,7 +41,6 @@ class EncoderTest(TestCase):
             le.transform(stuff)
 
     def test_bytes_typeerror(self):
-
         with self.assertRaises(TypeError):
             le = BytesLabelEncoder()
             le.partial_fit(["asd"])
@@ -51,7 +50,7 @@ class EncoderTest(TestCase):
 
         le = BytesLabelEncoder()
         le.partial_fit(stuff)
-        le2 = pickle.loads(pickle.dumps(le))
+        le2 = pickle.loads(pickle.dumps(le))  # nosec B301
         self.assertEqual(le.labels, le2.labels)
 
     def test_str(self):
@@ -61,7 +60,7 @@ class EncoderTest(TestCase):
         le.partial_fit(stuff)
         le.partial_fit(stuff)
         self.assertEqual(le.labels, {"asü": 0, "😀": 1, "zxä": 2})
-        le.transform(stuff) == np.array([0, 1, 2, 0, 1, 2])
+        np.testing.assert_array_equal(le.transform(stuff), np.array([0, 1, 2, 0, 1, 2]))
 
     def test_str_finalize_empty(self):
         le = StringLabelEncoder()
@@ -88,8 +87,7 @@ class EncoderTest(TestCase):
             le.transform(stuff)
 
     def test_str_typeerror(self):
-
-        with self.assertRaises(TypeError):
+        with self.assertRaisesRegex(TypeError, "expected str, bytes found"):
             le = StringLabelEncoder()
             le.partial_fit([b"asd"])
 
@@ -98,7 +96,7 @@ class EncoderTest(TestCase):
 
         le = StringLabelEncoder()
         le.partial_fit(stuff)
-        le2 = pickle.loads(pickle.dumps(le))
+        le2 = pickle.loads(pickle.dumps(le))  # nosec B301
         self.assertEqual(le.labels, le2.labels)
 
 

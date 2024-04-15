@@ -15,7 +15,7 @@ if sys.platform.startswith("linux"):
         cflags = ["-std=c++14", "-O2", "-fopenmp", "-ffast-math"]
 elif sys.platform == "win32":
     if machine in x86:
-        cflags = ["/std:c++14", "/O2", "/arch:AVX512", "/openmp", "/fp:fast"]
+        cflags = ["/std:c++14", "/O2", "/arch:AVX2", "/openmp", "/fp:fast"]
     else:
         cflags = ["/std:c++14", "/O2", "/openmp", "/fp:fast"]
 elif sys.platform == "darwin":
@@ -54,7 +54,7 @@ with open("readme.md", encoding="utf-8") as fr:
 if __name__ == "__main__":
     setup(
         name="encoders",
-        version="0.0.3",
+        version="0.0.4",
         description="Faster than scikit encoders",
         author="Dobatymo",
         long_description=long_description,
@@ -67,9 +67,10 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3",
         ],
         install_requires=[],
+        extras_require={"test": ["numpy"], "bench": ["genutility", "numpy", "pandas", "scikit-learn"]},
         packages=["encoders"],
         package_data={"encoders": ["py.typed"]},
         ext_modules=cythonize(cy_extensions, language_level=3, compiler_directives=compiler_directives),
-        python_requires=">=3.6",
+        python_requires=">=3.7",
         zip_safe=False,
     )

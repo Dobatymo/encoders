@@ -5,6 +5,8 @@ from libcpp.unordered_map cimport unordered_map
 from libcpp.utility cimport pair
 from libcpp.vector cimport vector
 
+from typing import Iterable
+
 import numpy as np
 
 from cpython.ref cimport PyObject
@@ -94,12 +96,12 @@ cdef class StringLabelEncoder:
 	def __init__(self):
 		pass
 
-	def partial_fit(self, seq):
+	def partial_fit(self, seq: Iterable[str]) -> None:
 		cdef object item
 
 		for item in seq:
 			if not isinstance(item, str):
-				raise TypeError(f"expected bytes, {type(item)} found")
+				raise TypeError(f"expected str, {type(item).__name__} found")
 
 			self._labels.insert(pair[PyUnicodeSmartPtr, size_t](PyUnicodeSmartPtr(<PyObject *>item), self._labels.size()))
 
