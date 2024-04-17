@@ -1,7 +1,9 @@
 [build-system]
 requires = [
   "Cython==3.0.10",
-  "numpy",
+  "numpy==1.17.3; python_version < '3.8'",  # oldest build supported by scipy, scikit-learn and pandas on py37
+  "numpy==1.20.3; python_version == '3.8'",  # oldest build supported by scipy, scikit-learn and pandas on py38
+  "numpy>=2.0.0rc1; python_version >= '3.9'",
   "setuptools",
   "wheel",
 ]

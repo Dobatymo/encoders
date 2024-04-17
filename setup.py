@@ -10,17 +10,17 @@ x86 = ("x86_64", "amd64", "i386", "x86", "i686")
 
 if sys.platform.startswith("linux"):
     if machine in x86:
-        cflags = ["-std=c++14", "-O2", "-mavx2", "-fopenmp", "-ffast-math"]
+        cflags = ["-std=c++14", "-O2", "-mavx", "-fopenmp", "-ffast-math"]
     else:
         cflags = ["-std=c++14", "-O2", "-fopenmp", "-ffast-math"]
 elif sys.platform == "win32":
     if machine in x86:
-        cflags = ["/std:c++14", "/O2", "/arch:AVX2", "/openmp", "/fp:fast"]
+        cflags = ["/std:c++14", "/O2", "/arch:AVX", "/openmp", "/fp:fast"]
     else:
         cflags = ["/std:c++14", "/O2", "/openmp", "/fp:fast"]
 elif sys.platform == "darwin":
     if machine in x86:
-        cflags = ["-std=c++14", "-O2", "-mavx2", "-ffast-math"]
+        cflags = ["-std=c++14", "-O2", "-mavx", "-ffast-math"]
     else:
         cflags = ["-std=c++14", "-O2", "-ffast-math"]
 else:
@@ -48,32 +48,7 @@ compiler_directives = {
     "warn.unused_result": True,
 }
 
-with open("readme.md", encoding="utf-8") as fr:
-    long_description = fr.read()
-
 if __name__ == "__main__":
     setup(
-        name="encoders",
-        version="0.0.4",
-        description="Faster than scikit encoders",
-        author="Dobatymo",
-        long_description=long_description,
-        long_description_content_type="text/markdown; charset=UTF-8",
-        url="https://github.com/Dobatymo/encoders",
-        classifiers=[
-            "Intended Audience :: Developers",
-            "License :: OSI Approved :: ISC License (ISCL)",
-            "Operating System :: OS Independent",
-            "Programming Language :: Python :: 3",
-        ],
-        install_requires=[],
-        extras_require={
-            "test": ["numpy"],
-            "bench": ["genutility[time]", "numpy", "pandas[output_formatting]", "scikit-learn", "tqdm"],
-        },
-        packages=["encoders"],
-        package_data={"encoders": ["py.typed"]},
         ext_modules=cythonize(cy_extensions, language_level=3, compiler_directives=compiler_directives),
-        python_requires=">=3.7",
-        zip_safe=False,
     )

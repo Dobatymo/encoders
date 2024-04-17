@@ -1,4 +1,4 @@
-from cython cimport nogil, view
+from cython cimport view
 from libcpp.map cimport map
 from libcpp.string cimport string
 from libcpp.unordered_map cimport unordered_map
