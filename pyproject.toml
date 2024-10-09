@@ -1,18 +1,64 @@
 [build-system]
 requires = [
-  "Cython==3.0.10",
-  "numpy==1.17.3; python_version < '3.8'",  # oldest build supported by scipy, scikit-learn and pandas on py37
-  "numpy==1.20.3; python_version == '3.8'",  # oldest build supported by scipy, scikit-learn and pandas on py38
-  "numpy>=2.0.0rc1; python_version >= '3.9'",
+  "cython==3.0.11",
+  "numpy==1.22.2; python_version<'3.9'",
+  "numpy>=2; python_version>='3.9'",
   "setuptools",
-  "wheel",
 ]
+
+[project]
+name = "encoders"
+version = "0.0.4"
+description = "Faster than scikit encoders"
+readme = "readme.md"
+license = { text = "ISC License" }
+authors = [ { name = "Dobatymo" } ]
+requires-python = ">=3.8"
+classifiers = [
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: ISC License (ISCL)",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+optional-dependencies.bench = [
+  "genutility[time]",
+  "numpy",
+  "pandas[output-formatting]",
+  "scikit-learn",
+  "tqdm",
+]
+optional-dependencies.test = [
+  "numpy",
+]
+urls.Home = "https://github.com/Dobatymo/encoders"
+
+[tool.setuptools]
+packages = [ "encoders" ]
+
+[tool.setuptools.package-data]
+encoders = [ "py.typed" ]
+
+[tool.cibuildwheel]
+archs = [ "auto64" ]
+test-extras = "test"
+test-command = "python -OO -m unittest discover -v -s {project}/tests"
 
 [tool.black]
 line-length = 120
 
 [tool.ruff]
 line-length = 120
+
+lint.extend-select = [
+  "B",
+  "I",
+]
 
 [tool.isort]
 profile = "black"
@@ -24,8 +70,8 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.bandit]
-skips = ["B101"]
+skips = [ "B101" ]
 
 [tool.cython-lint]
 max-line-length = 120
-ignore = ["W191"]
+ignore = [ "W191" ]
