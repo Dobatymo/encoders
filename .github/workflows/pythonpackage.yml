@@ -79,16 +79,14 @@ jobs:
   upload-pypi:
     if: github.event_name == 'release' && github.event.action == 'published'
     needs: [build-wheels, build-sdist]
-
     runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/download-artifact@v4
       with:
-        pattern: artifact=*
+        pattern: artifact-*
         path: dist
         merge-multiple: true
-
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
